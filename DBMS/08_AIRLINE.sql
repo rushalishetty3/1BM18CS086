@@ -48,9 +48,9 @@ SELECT DISTINCT A.A_NAME FROM AIRCRAFT A,EMPLOYEE E,CERTIFIED C
 WHERE E.SALARY>80000 AND A.A_ID=C.A_ID AND E.E_ID=C.E_ID;
 
 /*For each pilot who is certified for more than three aircrafts, find the eid and the maximum cruisingrange of the aircraft for which she or he is certified*/
-SELECT E.E_ID,MAX(A.CRUISING_RANGE) FROM EMPLOYEE E,CERTIFIED C,AIRCRAFT A
-WHERE E.E_ID IN (SELECT E_ID FROM CERTIFIED GROUP BY E_ID HAVING COUNT(*)>3)
-AND A.A_ID=C.A_ID AND E.E_ID=C.E_ID GROUP BY E.E_ID;
+SELECT C.E_ID,MAX(A.CRUISING_RANGE) FROM CERTIFIED C,AIRCRAFT A
+WHERE C.E_ID IN (SELECT E_ID FROM CERTIFIED GROUP BY E_ID HAVING
+COUNT(*)>3) AND A.A_ID=C.A_ID GROUP BY C.E_ID;
 
 /*Find the names of pilots whose salary is less than the price of the cheapest route from Bengaluru to Frankfurt.*/
 SELECT DISTINCT E.E_NAME FROM EMPLOYEE E,CERTIFIED C WHERE E.E_ID=C.E_ID AND
